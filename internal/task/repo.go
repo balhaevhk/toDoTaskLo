@@ -1,11 +1,14 @@
 package task
 
-// internal/task/repo.go
+import (
+	"context"
+	"errors"
+)
+
 type Repository interface {
-    Create(ctx context.Context, t Task) (Task, error)
-    GetByID(ctx context.Context, id int) (Task, error)
-    List(ctx context.Context, status *string) ([]Task, error)
+	Create(ctx context.Context, t Task) (Task, error)
+	GetByID(ctx context.Context, id int) (Task, error)
+	List(ctx context.Context, status *Status) ([]Task, error)
 }
 
-// internal/task/memrepo.go
-func NewMemRepo() Repository { /* ... */ }
+var ErrNotFound = errors.New("task not found")
