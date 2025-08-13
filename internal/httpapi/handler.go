@@ -128,13 +128,13 @@ type errResp struct {
 	Error string `json:"error"`
 }
 
-func (h *Handler) writeError(w http.ResponseWriter, r *http.Request, code int, msg string, cause error) {
+func (h *Handler) writeError(w http.ResponseWriter, _ *http.Request, code int, msg string, _ error) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(code)
 	_ = json.NewEncoder(w).Encode(errResp{Error: msg})
 }
 
-func (h *Handler) log(ctx context.Context, lvl logasync.Level, action string, r *http.Request, httpCode int, start time.Time, taskID *int, statusStr string, cause error) {
+func (h *Handler) log(_ context.Context, lvl logasync.Level, action string, r *http.Request, httpCode int, start time.Time, taskID *int, statusStr string, cause error) {
 	var errStr string
 	if cause != nil {
 		errStr = cause.Error()
